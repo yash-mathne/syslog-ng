@@ -21,8 +21,8 @@
  * COPYING for details.
  *
  */
-#include "python-module.h"
 #include "python-tf.h"
+#include "python-module.h"
 #include "python-helpers.h"
 #include "python-main.h"
 #include "template/simple-function.h"
