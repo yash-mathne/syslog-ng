@@ -34,6 +34,7 @@ static CfgLexerKeyword affile_keywords[] =
   { "file",               KW_FILE },
   { "fifo",               KW_PIPE },
   { "pipe",               KW_PIPE },
+  { "wildcard_file",           KW_WILDCARD },
 
   { "fsync",              KW_FSYNC },
   { "remove_if_older",    KW_OVERWRITE_IF_OLDER, KWS_OBSOLETE, "overwrite_if_older" },
@@ -43,6 +44,11 @@ static CfgLexerKeyword affile_keywords[] =
   { "multi_line_prefix",  KW_MULTI_LINE_PREFIX },
   { "multi_line_garbage", KW_MULTI_LINE_GARBAGE },
   { "multi_line_suffix",  KW_MULTI_LINE_GARBAGE },
+
+  { "base_dir",           KW_BASE_DIR},
+  { "file_pattern",       KW_FILE_PATTERN},
+  { "recursive",          KW_RECURSIVE},
+  { "max_files",          KW_MAX_FILES},
   { NULL }
 };
 

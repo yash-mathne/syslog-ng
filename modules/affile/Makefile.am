@@ -11,6 +11,8 @@ modules_affile_libaffile_la_SOURCES	=			\
 	modules/affile/affile-common.h				\
 	modules/affile/affile-source.c				\
 	modules/affile/affile-source.h				\
+  modules/affile/affile-wildcard-source.c \
+  modules/affile/affile-wildcard-source.h \
 	modules/affile/affile-dest.c				\
 	modules/affile/affile-dest.h				\
 	modules/affile/affile-grammar.y				\

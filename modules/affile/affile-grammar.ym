@@ -31,6 +31,7 @@
 
 #include "affile-common.h"
 #include "affile-source.h"
+#include "affile-wildcard-source.h"
 #include "affile-dest.h"
 #include "cfg-parser.h"
 #include "affile-grammar.h"
@@ -56,6 +57,11 @@
 /* INCLUDE_DECLS */
 
 %token KW_PIPE
+%token KW_WILDCARD
+%token KW_BASE_DIR
+%token KW_FILE_PATTERN
+%token KW_RECURSIVE
+%token KW_MAX_FILES
 
 %token KW_FSYNC
 %token KW_FOLLOW_FREQ
@@ -70,17 +76,19 @@
 %type   <ptr> dest_affile
 %type	<ptr> dest_affile_params
 %type   <ptr> dest_afpipe_params
+%type <ptr> source_wildcard_params
 
 %%
 
 start
-        : LL_CONTEXT_SOURCE source_affile                        { YYACCEPT; }
-	| LL_CONTEXT_DESTINATION dest_affile			 { YYACCEPT; }
+        : LL_CONTEXT_SOURCE source_affile          { YYACCEPT; }
+	      | LL_CONTEXT_DESTINATION dest_affile			 { YYACCEPT; }
         ;
 
 source_affile
 	: KW_FILE '(' source_affile_params ')'	{ $$ = $3; }
 	| KW_PIPE '(' source_afpipe_params ')'	{ $$ = $3; }
+  | KW_WILDCARD '(' source_wildcard_params ')' { $$ = $3; }
 	;
 
 source_affile_params
@@ -199,6 +207,29 @@ dest_afpipe_option
 	| dest_driver_option
 	| file_perm_option
 	;
+
+source_wildcard_params
+  : {
+      last_driver = *instance = affile_wildcard_sd_new(configuration);
+	    last_reader_options = &((AFFileWildCardSourceDriver *) last_driver)->reader_options;
+    }
+    source_wildcard_options { $$ = last_driver;}
+  ;
+
+source_wildcard_options
+  : source_wildcard_option source_wildcard_options
+  |
+  ;
+
+source_wildcard_option
+  : KW_BASE_DIR '(' string ')' { affile_wildcard_sd_set_base_dir(last_driver, $3); free($3); }
+  | KW_FILE_PATTERN '(' string ')' { affile_wildcard_sd_set_file_pattern(last_driver, $3); free($3); }
+  | KW_MAX_FILES '(' LL_NUMBER ')' { affile_wildcard_sd_set_max_files(last_driver, $3); }
+  | KW_RECURSIVE '(' yesno ')' { affile_wildcard_sd_set_recursive(last_driver, $3); }
+	| KW_FOLLOW_FREQ '(' LL_FLOAT ')'		{ affile_wildcard_sd_set_follow_freq(last_driver, (long) ($3 * 1000)); }
+	| KW_FOLLOW_FREQ '(' LL_NUMBER ')'		{ affile_wildcard_sd_set_follow_freq(last_driver, ($3 * 1000)); }
+  | source_reader_option
+  ;
 
 
 /* INCLUDE_RULES */

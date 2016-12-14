@@ -49,6 +49,11 @@ static Plugin affile_plugins[] =
     .name = "pipe",
     .parser = &affile_parser,
   },
+  {
+    .type = LL_CONTEXT_SOURCE,
+    .name = "wildcard-file",
+    .parser = &affile_parser,
+  },
 };
 
 gboolean
