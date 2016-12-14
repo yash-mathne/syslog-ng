@@ -1,3 +1,5 @@
+include modules/affile/filemonitor/Makefile.am
+
 module_LTLIBRARIES			+= modules/affile/libaffile.la
 modules_affile_libaffile_la_SOURCES	=			\
 	modules/affile/logproto-linux-proc-kmsg-reader.h	\
@@ -15,6 +17,10 @@ modules_affile_libaffile_la_SOURCES	=			\
 	modules/affile/affile-parser.c				\
 	modules/affile/affile-parser.h				\
 	modules/affile/affile-plugin.c
+
+modules_affile_libaffile_la_SOURCES += \
+    $(filemonitor_sources)  \
+    $(filemonitor_headers)
 
 BUILT_SOURCES				+= 			\
 	modules/affile/affile-grammar.y				\
