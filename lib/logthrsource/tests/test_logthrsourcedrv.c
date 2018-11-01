@@ -194,6 +194,7 @@ static void
 _do_not_ack_messages(LogPipe *s, LogMessage *msg, const LogPathOptions *path_options)
 {
   log_msg_unref(msg);
+  log_msg_unref(msg);
 }
 
 TestSuite(logthrsourcedrv, .init = setup, .fini = teardown, .timeout = 10);
