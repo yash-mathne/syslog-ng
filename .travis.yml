@@ -155,6 +155,8 @@ matrix:
         - cd build
         - cmake
             -DCMAKE_C_FLAGS=-Werror
+            -DSANITIZER=address
+            -DCMAKE_BUILD_TYPE=Debug
             -DPYTHON_VERSION=2
             -DCMAKE_INSTALL_PREFIX=$HOME/install/syslog-ng
             ..
