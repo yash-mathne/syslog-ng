@@ -112,7 +112,7 @@ jobs:
   distcheck:
     runs-on: ubuntu-18.04
     container:
-      image: balabit/syslog-ng-devshell:latest
+      image: gaborznagy/syslog-ng-devshell:latest
 
     strategy:
       matrix:
