@@ -146,7 +146,8 @@ jobs:
         run: ./autogen.sh
 
       - name: configure
-        run: ./configure ${DISTCHECK_CONFIGURE_FLAGS}
+        run: ./configure "--prefix=${HOME}/install/syslog-ng --with-ivykis=internal --with-jsonc=system
+              --disable-manpages --disable-linux-caps --disable-tcp-wrapper --disable-all-modules"
 
       - name: distcheck
         run: |
