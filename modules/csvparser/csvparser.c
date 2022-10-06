@@ -110,13 +110,13 @@ csv_parser_set_list_name(LogParser *s, const gchar *list_name)
 
   g_free(self->list_name);
   if(list_name)
-  {
-    self->list_name = g_strdup(list_name);
-  }
+    {
+      self->list_name = g_strdup(list_name);
+    }
   else
-  {
-    self->list_name = NULL;
-  }
+    {
+      self->list_name = NULL;
+    }
 }
 void
 csv_parser_set_drop_invalid(LogParser *s, gboolean drop_invalid)
